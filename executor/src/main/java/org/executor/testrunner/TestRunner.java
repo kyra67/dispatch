@@ -29,7 +29,7 @@ public class TestRunner implements Callable<Object> {
 
 			Method[] methods = clazz.getDeclaredMethods();
 
-			Thread.sleep(30000);
+//			Thread.sleep(30000);
 
 			for (Method method : methods) {
 
@@ -61,11 +61,12 @@ public class TestRunner implements Callable<Object> {
 
 			e.printStackTrace();
 
-		} catch (InterruptedException e) {
-
-			e.printStackTrace();
-
-		}
+		} 
+//		catch (InterruptedException e) {
+//
+//			e.printStackTrace();
+//
+//		}
 
 		return null;
 
