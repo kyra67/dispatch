@@ -128,6 +128,13 @@ public class StartPubController {
 
 	}
 
+	@RequestMapping(value = "test")
+	public String test() {
+
+		return "testdemo";
+
+	}
+
 	/*
 	 * Redis发布
 	 */
