@@ -149,7 +149,7 @@ public class StartPubController {
 			System.out.println("输入n值无效");
 
 		}
-		
+
 		random = SecureRandom.getInstanceStrong();
 
 		return random.nextInt(n);

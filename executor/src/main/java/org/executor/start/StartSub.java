@@ -1,5 +1,9 @@
 package org.executor.start;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 
 import org.executor.pubsub.Subscriber;
@@ -12,6 +16,8 @@ import redis.clients.jedis.*;
 public class StartSub {
 
 	private String channel = "mytest";
+
+	Logger logger = Logger.getGlobal();
 
 	@Autowired
 	JedisPool jedisPool;
@@ -32,6 +38,29 @@ public class StartSub {
 			}
 
 		}.start();
+
+		HostnameStore();
+
+	}
+
+	// 启动时上报客户端的hostname存储在Redis服务器中
+	public void HostnameStore() {
+
+		try {
+
+			InetAddress addr = InetAddress.getLocalHost();
+
+			logger.info(addr.getHostName());
+
+			Jedis jedis = jedisPool.getResource();
+
+			jedis.sadd("hostnames", addr.getHostName());
+
+		} catch (UnknownHostException e) {
+
+			e.printStackTrace();
+
+		}
 
 	}
 

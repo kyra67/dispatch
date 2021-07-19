@@ -4,29 +4,23 @@ package org.executor.pubsub;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.logging.Logger;
 
 import org.executor.executor.Executor;
+import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 
 import redis.clients.jedis.JedisPubSub;
 
+@Component
 public class Subscriber extends JedisPubSub {
 
 	public void onSubscribe(String channel, int subscribedChannels) {
 
-		// 订阅成功之后上报客户端的HOSTNAME，已用作任务下发时用
-		try {
+		Logger logger = Logger.getGlobal();
 
-			InetAddress addr = InetAddress.getLocalHost();
-
-			System.out.println("onsubscribe success" + addr.getHostName());
-
-		} catch (UnknownHostException e) {
-
-			e.printStackTrace();
-
-		}
+		logger.info("onsubscribe success");
 
 	}
 
@@ -36,7 +30,9 @@ public class Subscriber extends JedisPubSub {
 
 	public void onMessage(String channel, String message) {
 
-		System.out.println("onmessage success " + new Date().toString() + ", " + message); // 输出结果日志
+		Logger logger = Logger.getGlobal();
+
+		logger.info("onmessage success " + new Date().toString()); // 输出结果日志
 
 		if (message.equals("stop")) {
 
@@ -52,6 +48,8 @@ public class Subscriber extends JedisPubSub {
 		try {
 
 			List<Object> testcases = JSON.parseObject(message).getJSONArray(InetAddress.getLocalHost().getHostName()); // 取分配到本机的用例
+
+			logger.info(testcases.toString());
 
 			if (testcases != null) {
 
