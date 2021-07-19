@@ -1,4 +1,0 @@
-org\distribute\App.class
-org\distribute\controller\StopCaseController.class
-org\distribute\config\RedisConfig.class
-org\distribute\controller\StartPubController.class
