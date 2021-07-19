@@ -32,7 +32,7 @@ public class Subscriber extends JedisPubSub {
 
 		Logger logger = Logger.getGlobal();
 
-		logger.info("onmessage success " + new Date().toString()); // 输出结果日志
+		logger.info("onmessage success " + new Date().toString() + " " + message); // 输出结果日志
 
 		if (message.equals("stop")) {
 
@@ -49,9 +49,9 @@ public class Subscriber extends JedisPubSub {
 
 			List<Object> testcases = JSON.parseObject(message).getJSONArray(InetAddress.getLocalHost().getHostName()); // 取分配到本机的用例
 
-			logger.info(testcases.toString());
-
 			if (testcases != null) {
+
+				logger.info(testcases.toString());
 
 				Executor executor = new Executor();
 
