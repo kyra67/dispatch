@@ -15,9 +15,11 @@ public class Executor {
 	 */
 	public void executor(List<Object> testcases) {
 
-		ExecutorService es = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS,
-				new LinkedBlockingQueue<Runnable>());
+//		ExecutorService es = new ThreadPoolExecutor(10, 10, 0L, TimeUnit.MILLISECONDS,
+//				new LinkedBlockingQueue<Runnable>());
 
+		ExecutorService es = Executors.newFixedThreadPool(3);
+		
 		for (Object testcase : testcases) {
 
 			Callable<Object> testrunner = new TestRunner(testcase.toString());
@@ -28,15 +30,15 @@ public class Executor {
 
 		es.shutdown();
 
-		ThreadPoolExecutor tpe = (ThreadPoolExecutor) es;
-
-		logger.info("当前排队线程数：" + tpe.getQueue().size()); // 输出当前排队线程数
-
-		logger.info("当前活动线程数：" + tpe.getActiveCount()); // 输出当前活动线程数
-
-		logger.info("执行完成线程数：" + tpe.getCompletedTaskCount()); // 执行完成线程数
-
-		logger.info("总的线程数：" + tpe.getTaskCount()); // 总的线程数
+//		ThreadPoolExecutor tpe = (ThreadPoolExecutor) es;
+//
+//		logger.info("当前排队线程数：" + tpe.getQueue().size()); // 输出当前排队线程数
+//
+//		logger.info("当前活动线程数：" + tpe.getActiveCount()); // 输出当前活动线程数
+//
+//		logger.info("执行完成线程数：" + tpe.getCompletedTaskCount()); // 执行完成线程数
+//
+//		logger.info("总的线程数：" + tpe.getTaskCount()); // 总的线程数
 
 	}
 

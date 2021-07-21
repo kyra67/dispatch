@@ -1,5 +1,6 @@
 package org.distribute;
 
+import org.distribute.controller.StartPubController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

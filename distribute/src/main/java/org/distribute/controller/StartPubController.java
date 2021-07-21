@@ -3,6 +3,7 @@ package org.distribute.controller;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
@@ -15,9 +16,11 @@ import redis.clients.jedis.*;
 @Controller
 public class StartPubController {
 
-	private Random random;
+	Logger logger = Logger.getGlobal();
 
-	private String channel = "mytest";
+	Random random;
+
+	String channel = "mytest";
 
 	// 测试用例json格式
 	String test_cases = "{\"cases\":[{\"classname\":\"org.executor.testcase.HttpGet\",\"url\":\"https://ssl.gongyi.qq.com/cgi-bin/gywcom_qry_donate_dynamic\"},"
@@ -26,7 +29,7 @@ public class StartPubController {
 			+ "{\"classname\":\"org.executor.testcase.HttpGet\",\"url\":\"https://ssl.gongyi.qq.com/cgi-bin/gywcom_qry_donate_dynamic\"},"
 			+ "{\"classname\":\"org.executor.testcase.HttpGet\",\"url\":\"https://ssl.gongyi.qq.com/cgi-bin/gywcom_qry_donate_dynamic\"}]}";
 
-	// 上报的执行机器名
+//	 上报的执行机器名
 	List<String> hostnamelist = Arrays.asList("p_zhilingq-PC1", "VM-236-13-centos");
 
 	List<Object> caselist = JSON.parseObject(test_cases).getJSONArray("cases");
@@ -143,6 +146,8 @@ public class StartPubController {
 		Jedis publishJedis = jedisPool.getResource();
 
 		publishJedis.publish(channel, msg);
+
+		publishJedis.close();
 
 	}
 
